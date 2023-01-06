@@ -1,0 +1,326 @@
+#tic tac toe
+
+import random
+
+#for the first game, the players randomly get assigned x or o
+start = random.randrange(1,3)
+if start == 1:
+	p1piece = "X"
+	compiece = "O"
+else:
+	compiece = "X"
+	p1piece = "O"
+
+#keep track of points
+p1score = 0
+comscore = 0
+rounds = 0
+
+
+#the game keeps being played until someone wins 3 times
+while p1score < 3 or comscore < 3:
+	if p1score == 3:
+		print("Player 1 won tic tac toe!")
+		break
+	elif comscore == 3:
+		print("Computer won tic tac toe!")
+		break
+	spaces = ["a", "b", "c", "d", "e", "f", "g", "h", "i"]
+	takenspace = []
+	#initialize the game board to be empty
+	placeholders = ["a", "b", "c", "d", "e", "f", "g", "h", "i"]
+	for i in range(3):
+		for a in range(3):
+			print("___|", end="")
+		print()
+
+	#repeats 9 times because there's 9 spots on the board
+	rounds = 0
+	for i in range(9):
+		#checks to see who plays first, x always starts
+		if compiece == "X":
+			commove = random.choice(spaces)
+			#ai 
+			ai = random.randrange(1, 11)
+			if placeholders[0] == p1piece and placeholders[1] == p1piece:
+				if ai >=7:
+					commove = placeholders[2]
+			elif placeholders[0] == p1piece and placeholders[2] == p1piece:
+				if ai >=7:
+					commove = placeholders[1]
+			elif placeholders[1] == p1piece and placeholders[2] == p1piece:
+				if ai >=7:
+					commove = placeholders[0]
+			elif placeholders[3] == p1piece and placeholders[4] == p1piece:
+				if ai >=7:
+					commove = placeholders[5]
+			elif placeholders[3] == p1piece and placeholders[5] == p1piece:
+				if ai >=7:
+					commove = placeholders[4]
+			elif placeholders[4] == p1piece and placeholders[5] == p1piece:
+				if ai >=7:
+					commove = placeholders[3]
+			elif placeholders[6] == p1piece and placeholders[7] == p1piece:
+				if ai >=7:
+					commove = placeholders[8]
+			elif placeholders[6] == p1piece and placeholders[8] == p1piece:
+				if ai >=7:
+					commove = placeholders[7]
+			elif placeholders[7] == p1piece and placeholders[8] == p1piece:
+				if ai >=7:
+					commove = placeholders[6]
+			elif placeholders[0] == p1piece and placeholders[3] == p1piece:
+				if ai >=7:
+					commove = placeholders[6]
+			elif placeholders[0] == p1piece and placeholders[6] == p1piece:
+				if ai >=7:
+					commove = placeholders[3]
+			elif placeholders[3] == p1piece and placeholders[6] == p1piece:
+				if ai >=7:
+					commove = placeholders[0]
+			elif placeholders[1] == p1piece and placeholders[4] == p1piece:
+				if ai >=7:
+					commove = placeholders[7]
+			elif placeholders[1] == p1piece and placeholders[7] == p1piece:
+				if ai >=7:
+					commove = placeholders[4]
+			elif placeholders[4] == p1piece and placeholders[7] == p1piece:
+				if ai >=7:
+					commove = placeholders[1]
+			elif placeholders[2] == p1piece and placeholders[5] == p1piece:
+				if ai >=7:
+					commove = placeholders[8]
+			elif placeholders[2] == p1piece and placeholders[8] == p1piece:
+				if ai >=7:
+					commove = placeholders[5]
+			elif placeholders[5] == p1piece and placeholders[8] == p1piece:
+				if ai >=7:
+					commove = placeholders[2]
+			elif placeholders[0] == p1piece and placeholders[4] == p1piece:
+				if ai >=7:
+					commove = placeholders[8]
+			elif placeholders[0] == p1piece and placeholders[8] == p1piece:
+				if ai >=7:
+					commove = placeholders[4]
+			elif placeholders[4] == p1piece and placeholders[8] == p1piece:
+				if ai >=7:
+					commove = placeholders[0]
+
+			elif placeholders[2] == p1piece and placeholders[4] == p1piece:
+				if ai >=7:
+					commove = placeholders[6]
+			elif placeholders[2] == p1piece and placeholders[6] == p1piece:
+				if ai >=7:
+					commove = placeholders[4]
+			elif placeholders[4] == p1piece and placeholders[6] == p1piece:
+				if ai >=7:
+					commove = placeholders[2]
+
+			#makes sure that a filled space isn't chosen, if so, it choses again
+			while commove in takenspace:
+				commove = random.choice(spaces)
+			#creates the game board
+			for row in range(3):
+				for line in range(3):
+					print("__"+placeholders[row*3+line]+"__|",end="")
+				print()
+			#creates the game board with the move in the right space
+			for x in range(len(placeholders)):
+				if placeholders[x] == commove:
+					placeholders[x] = compiece
+			takenspace.append(commove)
+			print("rounds: ", rounds)
+			rounds += 1
+			
+			#repeats that process with player 1 input
+			print("choose a space to take ")
+			p1move = input(spaces)
+			while p1move in takenspace:
+				p1move = input("that space is taken, please choose again ")
+			for i in range(9):
+				if p1move == spaces[i]:
+					for row in range(3):
+						for line in range(3):
+							print("__", placeholders[row*3+line], "__|",end="")
+						print()
+			for x in range(len(placeholders)):
+				if placeholders[x] == p1move:
+					placeholders[x] = p1piece
+			takenspace.append(p1move)
+			print("rounds: ", rounds)
+			rounds += 1
+
+			if placeholders[0] == p1piece and placeholders[1] == p1piece and placeholders[2] == p1piece or placeholders[3] == p1piece and placeholders[4] == p1piece and placeholders[5] == p1piece or placeholders[6] == p1piece and placeholders[7] == p1piece and placeholders[8] == p1piece or placeholders[0] == p1piece and placeholders[3] == p1piece and placeholders[6] == p1piece or placeholders[1] == p1piece and placeholders[4] == p1piece and placeholders[7] == p1piece or placeholders[2] == p1piece and placeholders[5] == p1piece and placeholders[8] == p1piece or placeholders[0] == p1piece and placeholders[4] == p1piece and placeholders[8] == p1piece or placeholders[2] == p1piece and placeholders[4] == p1piece and placeholders[6] == p1piece:
+				p1score += 1
+				print("Game over! Player 1 wins")
+				print("player 1 score: ", p1score)
+				print("computer score: ", comscore)
+				p1piece = "O"
+				compiece = "X"
+				break
+
+
+			elif placeholders[0] == compiece and placeholders[1] == compiece and placeholders[2] == compiece or placeholders[3] == compiece and placeholders[4] == compiece and placeholders[5] == compiece or placeholders[6] == compiece and placeholders[7] == compiece and placeholders[8] == compiece or placeholders[0] == compiece and placeholders[3] == compiece and placeholders[6] == compiece or placeholders[1] == compiece and placeholders[4] == compiece and placeholders[7] == compiece or placeholders[2] == compiece and placeholders[5] == compiece and placeholders[8] == compiece or placeholders[0] == compiece and placeholders[4] == compiece and placeholders[8] == compiece or placeholders[2] == compiece and placeholders[4] == compiece and placeholders[6] == compiece:
+				print(compiece)
+				comscore += 1
+				print("Game over! Computer wins")
+				print("player 1 score: ", p1score)
+				print("computer score: ", comscore)
+				p1piece = "X"
+				compiece = "O"
+				break
+
+			elif  rounds == 9:
+				print("it's a tie!")
+				print("player 1 score: ", p1score)
+				print("computer score: ", comscore)
+				start = random.randrange(1,3)
+				if start == 1:
+					p1piece = "X"
+					compiece = "O"
+				else:
+					compiece = "X"
+					p1piece = "O"
+				break
+
+
+		#the order is switched here if player 1 is x bc they go first but everything else is same
+		else:
+			print("choose a space to take ")
+			p1move = input(spaces)
+			while p1move in takenspace:
+				p1move = input("that space is taken, please choose again ")
+			for i in range(9):
+				if p1move == spaces[i]:
+					for row in range(3):
+						for line in range(3):
+							print("__", placeholders[row*3+line], "__|",end="")
+						print()
+		
+			for x in range(len(placeholders)):
+				if placeholders[x] == p1move:
+					placeholders[x] = p1piece
+			takenspace.append(p1move)
+			print("rounds: ", rounds)
+			rounds += 1
+
+			commove = random.choice(spaces)
+			while commove in takenspace:
+				commove = random.choice(spaces)
+			#ai 
+			ai = random.randrange(1, 11)
+			if placeholders[0] == p1piece and placeholders[1] == p1piece:
+				if ai >=7:
+					commove = placeholders[2]
+			elif placeholders[0] == p1piece and placeholders[2] == p1piece:
+				if ai >=7:
+					commove = placeholders[1]
+			elif placeholders[1] == p1piece and placeholders[2] == p1piece:
+				if ai >=7:
+					commove = placeholders[0]
+			elif placeholders[3] == p1piece and placeholders[4] == p1piece:
+				if ai >=7:
+					commove = placeholders[5]
+			elif placeholders[3] == p1piece and placeholders[5] == p1piece:
+				if ai >=7:
+					commove = placeholders[4]
+			elif placeholders[4] == p1piece and placeholders[5] == p1piece:
+				if ai >=7:
+					commove = placeholders[3]
+			elif placeholders[6] == p1piece and placeholders[7] == p1piece:
+				if ai >=7:
+					commove = placeholders[8]
+			elif placeholders[6] == p1piece and placeholders[8] == p1piece:
+				if ai >=7:
+					commove = placeholders[7]
+			elif placeholders[7] == p1piece and placeholders[8] == p1piece:
+				if ai >=7:
+					commove = placeholders[6]
+			elif placeholders[0] == p1piece and placeholders[3] == p1piece:
+				if ai >=7:
+					commove = placeholders[6]
+			elif placeholders[0] == p1piece and placeholders[6] == p1piece:
+				if ai >=7:
+					commove = placeholders[3]
+			elif placeholders[3] == p1piece and placeholders[6] == p1piece:
+				if ai >=7:
+					commove = placeholders[0]
+			elif placeholders[1] == p1piece and placeholders[4] == p1piece:
+				if ai >=7:
+					commove = placeholders[7]
+			elif placeholders[1] == p1piece and placeholders[7] == p1piece:
+				if ai >=7:
+					commove = placeholders[4]
+			elif placeholders[4] == p1piece and placeholders[7] == p1piece:
+				if ai >=7:
+					commove = placeholders[1]
+			elif placeholders[2] == p1piece and placeholders[5] == p1piece:
+				if ai >=7:
+					commove = placeholders[8]
+			elif placeholders[2] == p1piece and placeholders[8] == p1piece:
+				if ai >=7:
+					commove = placeholders[5]
+			elif placeholders[5] == p1piece and placeholders[8] == p1piece:
+				if ai >=7:
+					commove = placeholders[2]
+			elif placeholders[0] == p1piece and placeholders[4] == p1piece:
+				if ai >=7:
+					commove = placeholders[8]
+			elif placeholders[0] == p1piece and placeholders[8] == p1piece:
+				if ai >=7:
+					commove = placeholders[4]
+			elif placeholders[4] == p1piece and placeholders[8] == p1piece:
+				if ai >=7:
+					commove = placeholders[0]
+			elif placeholders[2] == p1piece and placeholders[4] == p1piece:
+				if ai >=7:
+					commove = placeholders[6]
+			elif placeholders[2] == p1piece and placeholders[6] == p1piece:
+				if ai >=7:
+					commove = placeholders[4]
+			elif placeholders[4] == p1piece and placeholders[6] == p1piece:
+				if ai >=7:
+					commove = placeholders[2]
+
+			for row in range(3):
+				for line in range(3):
+					print("__"+placeholders[row*3+line]+"__|",end="")
+				print()
+			for x in range(len(placeholders)):
+				if placeholders[x] == commove:
+					placeholders[x] = compiece
+			takenspace.append(commove)
+			print("rounds: ", rounds)
+			rounds += 1
+				
+			if placeholders[0] == p1piece and placeholders[1] == p1piece and placeholders[2] == p1piece or placeholders[3] == p1piece and placeholders[4] == p1piece and placeholders[5] == p1piece or placeholders[6] == p1piece and placeholders[7] == p1piece and placeholders[8] == p1piece or placeholders[0] == p1piece and placeholders[3] == p1piece and placeholders[6] == p1piece or placeholders[1] == p1piece and placeholders[4] == p1piece and placeholders[7] == p1piece or placeholders[2] == p1piece and placeholders[5] == p1piece and placeholders[8] == p1piece or placeholders[0] == p1piece and placeholders[4] == p1piece and placeholders[8] == p1piece or placeholders[2] == p1piece and placeholders[4] == p1piece and placeholders[6] == p1piece:
+				p1score += 1
+				print("Game over! Player 1 wins")
+				print("player 1 score: ", p1score)
+				print("computer score: ", comscore)
+				p1piece = "O"
+				compiece = "X"
+				break
+
+			elif placeholders[0] == compiece and placeholders[1] == compiece and placeholders[2] == compiece or placeholders[3] == compiece and placeholders[4] == compiece and placeholders[5] == compiece or placeholders[6] == compiece and placeholders[7] == compiece and placeholders[8] == compiece or placeholders[0] == compiece and placeholders[3] == compiece and placeholders[6] == compiece or placeholders[1] == compiece and placeholders[4] == compiece and placeholders[7] == compiece or placeholders[2] == compiece and placeholders[5] == compiece and placeholders[8] == compiece or placeholders[0] == compiece and placeholders[4] == compiece and placeholders[8] == compiece or placeholders[2] == compiece and placeholders[4] == compiece and placeholders[6] == compiece:
+				print(compiece)
+				comscore += 1
+				print("Game over! Computer wins")
+				print("player 1 score: ", p1score)
+				print("computer score: ", comscore)
+				p1piece = "X"
+				compiece = "O"
+				break
+
+			elif rounds == 9:
+				print("it's a tie!")
+				print("player 1 score: ", p1score)
+				print("computer score: ", comscore)
+				start = random.randrange(1,3)
+				if start == 1:
+					p1piece = "X"
+					compiece = "O"
+				else:
+					compiece = "X"
+					p1piece = "O"
+				break
